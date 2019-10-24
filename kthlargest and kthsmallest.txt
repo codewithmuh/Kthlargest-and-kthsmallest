@@ -1,0 +1,113 @@
+#include<iostream>
+#include"Header.h"
+using namespace std;
+// Pucit Help Corner
+//Muhmmad Rashid 
+//keep helping others
+
+
+int findKthSmallest(const int* arr, int n, int k) {
+	//Current rank of smallest value
+
+	int currentRank = 1;
+	//Store first value as smallest value for rank 1
+	int KthSmallValue = arr[0];
+
+	//Loop through array starting from 2nd element
+	for (int i = 1; i < n; i++)
+	{
+		//If next array element is greater then one 
+		//and current rank is not yet equal to k then
+		//replace kthSmallValue and increement currentRank
+		if (KthSmallValue < arr[i])
+		{
+			if (currentRank < k)
+			{
+				KthSmallValue = arr[i];
+				currentRank++;
+			}
+		}
+		//If next array element is smaller then kthSmallValue 
+		//then adjust kthSmallValue with last max value
+		else
+		{
+			int MaxValue = arr[i];
+			for (int j = 0; j < i; j++)
+			{
+				if (MaxValue < arr[j] && (currentRank<k || KthSmallValue > arr[j]))
+				{
+					MaxValue = arr[j];
+				}
+			}
+
+			if (MaxValue >= KthSmallValue)
+				currentRank++;
+
+			KthSmallValue = MaxValue;
+		}
+	}
+	return KthSmallValue;
+}
+int findKthLargest(const int* arr, int n, int k) {
+	//Current rank of smallest value
+
+	int currentRank = 1;
+	
+	int KthLargeValue = arr[0];
+
+	
+	for (int i = 1; i < n; i++)
+	{
+		
+		if (KthLargeValue >arr[i])
+		{
+			if (currentRank > k)
+			{
+				KthLargeValue = arr[i];
+				currentRank++;
+			}
+		}
+		
+		else
+		{
+			int MinValue = arr[i];
+			for (int j = 0; j < i; j++)
+			{
+				if (MinValue >arr[j] && (currentRank<k || KthLargeValue <arr[j]))
+				{
+					MinValue = arr[j];
+				}
+			}
+
+			if (MinValue <= KthLargeValue)
+				currentRank++;
+
+			KthLargeValue = MinValue;
+		}
+	}
+	return KthLargeValue;
+}
+int main() {
+
+	// " kith work , ";
+	int* arr;
+	int n = 5;
+	arr = new int[n];
+	cout << "enter " << n << "elemnts in the array then find kth " << endl;
+	for (int k = 0; k < n; k++)
+	{
+		cin >> arr[k];
+	}
+	int k;
+	cout << " which smallest element of list you wnat" << endl;
+cin >> k;
+	cout << k << "   smallest  is " << findKthSmallest(arr, n, k);
+	cout << " which large element of list you wnat" << endl;
+	
+	cout << k << "   largest  is " << findKthLargest(arr, n, k);
+
+	
+
+	return 0;
+//Muhmmad Rashid....
+}
